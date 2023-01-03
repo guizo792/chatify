@@ -1,0 +1,26 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "realtime chat application using nodejs",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server",
+    "startProd": "node server"
+  },
+  "keywords": [
+    "chat",
+    "nodejs",
+    "svelte",
+    "socket.io"
+  ],
+  "author": "Abdellah GUIZOUL",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "moment": "^2.29.4",
+    "socket.io": "^4.5.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
