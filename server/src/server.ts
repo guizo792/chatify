@@ -20,7 +20,12 @@ app.use(cors());
 app.use(express.json());
 
 const server = http.createServer(app);
-const io = socketio(server);
+const io = socketio(server, {
+  cors: {
+    origin: 'http://localhost:3000',
+    credentials: true,
+  },
+});
 
 // Setting static folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -92,4 +97,4 @@ io.on('connection', (socket: any) => {
 
 const port = process.env.PORT || 3000;
 
-server.listen(port, () => console.log(`🟢🏃🏻‍♂️ server running on port ${port}`));
+server.listen(port, () => console.log(`🟢 server running on port ${port}`));

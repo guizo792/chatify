@@ -1,43 +1,21 @@
-import logo from './logo.svg';
+import { Routes, Route } from 'react-router-dom';
+
+import Navigation from './routes/navigation/navigation.component';
+import JoinForm from './components/join-form/join-form.component';
+import Chat from './components/chat/chat.component';
+
 import './App.css';
 
 function App() {
   return (
-    <div class="join-container">
-      <header class="join-header">
-        <h1>
-          <i class="fas fa-comment"></i> Chatify
-        </h1>
-      </header>
-      <main class="join-main">
-        <form action="chat.html">
-          <div class="form-control">
-            <label for="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Enter username..."
-              required
-            />
-          </div>
-          <div class="form-control">
-            <label for="room">Room</label>
-            <select name="room" id="room">
-              <option value="JavaScript">JavaScript</option>
-              <option value="Python">Python</option>
-              <option value="PHP">PHP</option>
-              <option value="C#">C#</option>
-              <option value="Ruby">Ruby</option>
-              <option value="Java">Java</option>
-            </select>
-          </div>
-          <button type="submit" class="btn">
-            Join Chat
-          </button>
-        </form>
-      </main>
-    </div>
+    <Routes>
+      <Route path="/" element={<Navigation />}>
+        {/* <Route index element={<Home />} /> */}
+        <Route index element={<JoinForm />} />
+        <Route path="/chat/*" element={<Chat />} />
+        {/* <Route path="/auth" element={<Authentication />} /> */}
+      </Route>
+    </Routes>
   );
 }
 
