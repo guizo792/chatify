@@ -26,6 +26,8 @@
 
 .join-main .form-control {
   margin-bottom: 20px;
+  border: none;
+  background-color: #ededed00;
 }
 
 .join-main label {
@@ -33,23 +35,19 @@
   margin-bottom: 5px;
 }
 
-.join-main input[type='text'] {
+.join-main input {
   font-size: 16px;
   padding: 5px;
   height: 40px;
   width: 100%;
-}
-
-.join-main select {
-  font-size: 16px;
-  padding: 5px;
-  height: 40px;
-  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #112a46;
 }
 
 .join-main .btn {
   margin-top: 20px;
   width: 100%;
+  /* border: 1px solid #112a46; */
 }
 
 @media (max-width: 700px) {
@@ -62,13 +60,10 @@
   }
 }
 
-/*////////////////////////*/
-
-select,
 input {
   border-radius: 6px;
   border: 1px solid #112a46;
 }
 input:focus {
-  outline: 2px solid #c6d8ec;
+  outline: 3px solid #114179;
 }

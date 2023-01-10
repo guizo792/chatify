@@ -1,0 +1,24 @@
+:root {
+  --dark-color-a: #112a46;
+  --dark-color-b: #9dc2eb;
+  --light-color: #fff;
+  --success-color: #7ae27a;
+  --error-color: #ff9a89;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 5px 15px;
+  background: var(--light-color);
+  color: var(--dark-color-a);
+  border: 0;
+  font-size: 17px;
+  border-radius: 6px;
+  border: 1px solid #112a46;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background-color: #c6d8ec;
+  color: var(--dark-color-a);
+}

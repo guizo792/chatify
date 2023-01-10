@@ -1,0 +1,12 @@
+.about-us-container {
+  line-height: 2.6rem !important;
+}
+
+.about-us-header {
+  font-size: 1.4rem;
+}
+
+.about-us-logo {
+  height: 30vmin;
+  pointer-events: none;
+}

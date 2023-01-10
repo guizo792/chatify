@@ -1,20 +1,26 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { Link } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 
 import { ReactComponent as ChatLogo } from '../../assets/chat.svg';
 
+import './navigation.styles.scss';
+
 function NavScrollExample() {
   return (
     <>
-      <Navbar bg="light" expand="lg" style={{ borderRadius: '6px' }}>
+      <Navbar
+        // bg="light"
+        expand="lg"
+        style={{ borderRadius: '6px', backgroundColor: '#EDEDED66' }}
+      >
         <Container fluid>
           <Navbar.Brand
-            href="#"
+            href="/"
             style={{ color: '#0275da', fontWeight: 'bold' }}
           >
             <ChatLogo style={{ height: '46px', width: '64px' }} />
@@ -31,17 +37,27 @@ function NavScrollExample() {
               <Nav.Link href="/about-us">About us</Nav.Link>
             </Nav>
 
-            <Button style={{ marginRight: '8px' }}>Login</Button>
-            <Button
-              // variant="secondary"
+            <Link
+              to={'/auth/login'}
+              className="btn"
+              style={{
+                marginRight: '8px',
+                border: 'solid 1px var(--dark-color-a)',
+              }}
+            >
+              Login
+            </Link>
+            <Link
+              to={'/auth/signup'}
               style={{
                 backgroundColor: '#0275d8',
                 color: '#fff',
                 border: 'solid 1px #0275d8',
               }}
+              className="btn signup-btn"
             >
               Sign up
-            </Button>
+            </Link>
           </Navbar.Collapse>
         </Container>
       </Navbar>

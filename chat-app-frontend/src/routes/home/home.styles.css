@@ -1,0 +1,47 @@
+.Home-container {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 4rem;
+  text-align: center;
+  justify-content: center;
+}
+
+.Home-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.Home-header {
+  /* background-color: #282c34; */
+  /* min-height: 100vh; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: #25558b;
+  font-size: 1.6rem;
+}
+
+.Home-header span {
+  background-color: #0275d8;
+  color: white;
+  margin-right: 8px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 1.2rem;
+}
+
+.Home-link {
+  font-weight: bold;
+  border-bottom: 3px solid #0275d822;
+}
+
+code {
+  color: #112a46;
+  font-weight: bold;
+  /* background-color: #4393da; */
+  /* padding: 2px 4px;
+  border-radius: 4px; */
+}
