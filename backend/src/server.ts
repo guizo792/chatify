@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const http = require('http');
 const path = require('path');
 const socketio = require('socket.io');
@@ -14,7 +15,18 @@ const {
 } = require('./utils/users');
 
 const app = express();
+
+// Configure env variables file
 dotenv.config({ path: 'config/config.env' });
+
+// Database connection
+mongoose
+  .connect(process.env.lOCAL_DATABASE, {
+    useNewUrlParse: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .then((con: any) => console.log('DB connection successful ✅'));
 
 app.use(cors());
 app.use(express.json());
