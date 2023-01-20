@@ -9,6 +9,7 @@ export interface IUser extends helper.Document {
   password: string;
   passwordConfirm: string | undefined;
   isModified: Function;
+  passwordChangedAt: Date;
 }
 
 const userSchema = new mongoose.Schema({
@@ -41,6 +42,7 @@ const userSchema = new mongoose.Schema({
       message: 'The passwords are not the same',
     },
   },
+  passwordChangedAt: Date,
 });
 
 // Hash passwords before save or create new user
@@ -63,6 +65,19 @@ userSchema.methods.isPasswordCorrect = async function (
   userPassword: string
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+userSchema.methods.changedPasswordAfter = function (
+  this: IUser,
+  JWTTimestamp: number
+): boolean {
+  if (this.passwordChangedAt) {
+    const changedAtTimestamp = this.passwordChangedAt.getTime() / 1000;
+    return JWTTimestamp < changedAtTimestamp;
+  }
+
+  // Not changed
+  return false;
 };
 
 const User = mongoose.model('User', userSchema);

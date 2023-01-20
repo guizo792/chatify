@@ -20,15 +20,24 @@ const userRouter = require('./routes/userRoutes');
 
 const app = express();
 
+// MIDDELWARES
 app.use(cors());
 app.use(express.json());
+
+// app.use((req: Request, res: Response, next: NextFunction) => {
+//   console.log(req.headers);
+//   next();
+// });
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+// SERVER
 const server = http.createServer(app);
+
+// SOCKET
 const io = socketio(server, {
   cors: {
     origin: 'http://localhost:3000',
