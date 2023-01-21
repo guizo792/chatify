@@ -20,7 +20,7 @@ const sendEmail = async (options: {
     from: 'Abdellah Guizo <hello@abdellah.io>', // sender address
     to: options.email, // list of receivers
     subject: options.subject + 'Testing nodemailer with GMAIL 📧', // Subject line
-    text: options.message + '<p>Your html here</p>', // plain text body
+    html: options.message + '<p>Your html here</p>', // plain text body
   };
 
   // 3) Send the email

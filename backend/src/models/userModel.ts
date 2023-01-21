@@ -7,10 +7,12 @@ import { NextFunction } from 'express';
 import helper from '../utils/helper';
 
 export interface IUser extends helper.Document {
+  _id: helper.id;
   password: string;
   passwordConfirm: string | undefined;
   isModified: Function;
   passwordChangedAt: Date;
+  isNew: Function;
 }
 
 const userSchema = new mongoose.Schema({
@@ -57,8 +59,15 @@ userSchema.pre('save', async function (this: IUser, next: NextFunction) {
   this.password = await bcrypt.hash(this.password, 10);
 
   // Delete passwordConfirm
-  // We need the passConfirm just for validationg password
+  // We need the passConfirm just for validating password
   this.passwordConfirm = undefined;
+  next();
+});
+
+userSchema.pre('save', function (this: IUser, next: NextFunction) {
+  if (!this.isModified('password') || this.isNew) return next();
+
+  this.passwordChangedAt = new Date(Date.now() - 1000);
   next();
 });
 
