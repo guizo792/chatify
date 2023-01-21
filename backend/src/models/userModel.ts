@@ -13,6 +13,7 @@ export interface IUser extends helper.Document {
   isModified: Function;
   passwordChangedAt: Date;
   isNew: Function;
+  find: Function;
 }
 
 const userSchema = new mongoose.Schema({
@@ -48,6 +49,11 @@ const userSchema = new mongoose.Schema({
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  active: {
+    type: Boolean,
+    default: true,
+    select: false,
+  },
 });
 
 // Hash passwords before save or create new user
@@ -68,6 +74,12 @@ userSchema.pre('save', function (this: IUser, next: NextFunction) {
   if (!this.isModified('password') || this.isNew) return next();
 
   this.passwordChangedAt = new Date(Date.now() - 1000);
+  next();
+});
+
+userSchema.pre(/^find/, function (this: IUser, next: NextFunction) {
+  // This points to the current query
+  this.find({ active: { $ne: false } });
   next();
 });
 
@@ -100,7 +112,7 @@ userSchema.methods.createPasswordResetToken = function () {
     .update(resetToken)
     .digest('hex');
 
-  console.log(resetToken, this.passwordResetToken);
+  // console.log(resetToken, this.passwordResetToken);
 
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 

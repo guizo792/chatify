@@ -88,7 +88,7 @@ exports.protect = catchAsync(
     const currentUser = await User.findById(decoded.id);
     if (!currentUser) {
       return next(
-        new AppError('The user belongiing to this token no longer exist.', 401)
+        new AppError('The user belonging to this token no longer exist.', 401)
       );
     }
 
@@ -101,7 +101,7 @@ exports.protect = catchAsync(
 
     // GRANT ACCESS TO PROTECTED ROUTE
     req.user = currentUser;
-    console.log(req.user);
+    // console.log(req.user);
     next();
   }
 );
