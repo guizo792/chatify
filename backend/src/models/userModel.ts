@@ -8,7 +8,7 @@ import helper from '../utils/helper';
 
 export interface IUser extends helper.Document {
   _id: helper.id;
-  password: string;
+  password: string | undefined;
   passwordConfirm: string | undefined;
   isModified: Function;
   passwordChangedAt: Date;

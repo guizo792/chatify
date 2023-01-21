@@ -17,8 +17,36 @@ const signToken = (id: helper.id) => {
 };
 
 const createSendToken = (user: IUser, statusCode: number, res: Response) => {
+  // sign token
   const token = signToken(user._id);
 
+  // send token via cookie
+  const tokenExpirationDate =
+    process.env.JWT_COOKIE_EXPIRES_IN === undefined
+      ? '90'
+      : process.env.JWT_COOKIE_EXPIRES_IN;
+
+  type CookieOptions = {
+    expires: Date;
+    httpOnly: boolean;
+    secure?: boolean;
+  };
+
+  const cookieOptions: CookieOptions = {
+    expires: new Date(
+      Date.now() + parseInt(tokenExpirationDate) * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true,
+  };
+
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+
+  res.cookie('jwt', token);
+
+  // Prevent displaying user password in response
+  user.password = undefined;
+
+  // send token in response
   res.status(statusCode).json({
     status: 'success',
     token,
