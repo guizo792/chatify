@@ -1,11 +1,16 @@
-import { Request, Response, NextFunction } from 'express';
-
 const express = require('express');
 const http = require('http');
 const path = require('path');
 const socketio = require('socket.io');
 const cors = require('cors');
 const morgan = require('morgan');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const xssClean = require('xss-clean');
+const hpp = require('hpp');
+
+import { Request, Response, NextFunction } from 'express';
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -21,32 +26,56 @@ const userRouter = require('./routes/userRoutes');
 const app = express();
 
 // MIDDELWARES
-app.use(cors());
-app.use(express.json());
 
 // app.use((req: Request, res: Response, next: NextFunction) => {
 //   console.log(req.headers);
 //   next();
 // });
 
+// Http headers
+app.use(helmet());
+
+// CORS
+app.use(cors());
+
+// Parsing body (reading data - body -> req.body)
+app.use(express.json({ limit: '10kb' }));
+
+// Sanitizing data against NoSQL query injection
+app.use(mongoSanitize());
+
+// Sanitizing data against xss
+app.use(xssClean());
+
+// Avoid parameter pollution
+app.use(hpp());
+
 // Development logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+// Rate limiting
+const rateLimiter = rateLimit({
+  max: 100,
+  windowMs: 60 * 60 * 1000,
+  message: 'Too many requests from this IP, please try again in an hour!',
+});
+app.use('/api', rateLimiter);
+
+// Setting static folder
+app.use(express.static(path.join(__dirname, 'public')));
+
 // SERVER
 const server = http.createServer(app);
 
-// SOCKET
+// SOCKET (allow cors to our frontend app)
 const io = socketio(server, {
   cors: {
     origin: 'http://localhost:3000',
     credentials: true,
   },
 });
-
-// Setting static folder
-app.use(express.static(path.join(__dirname, 'public')));
 
 const botName = 'Chat Bot';
 
