@@ -9,6 +9,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xssClean = require('xss-clean');
 const hpp = require('hpp');
+const cookieParser = require('cookie-parser');
 
 import { Request, Response, NextFunction } from 'express';
 
@@ -27,19 +28,38 @@ const app = express();
 
 // MIDDELWARES
 
-// app.use((req: Request, res: Response, next: NextFunction) => {
-//   console.log(req.headers);
-//   next();
-// });
-
 // Http headers
 app.use(helmet());
 
 // CORS
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })
+);
+// app.use(cors());
 
 // Parsing body (reading data - body -> req.body)
 app.use(express.json({ limit: '10kb' }));
+
+// Parsing cookies
+app.use(cookieParser());
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  console.log(req.cookies);
+  next();
+});
+
+// app.use(function (req: Request, res: Response, next: NextFunction) {
+//   res.header('Content-Type', 'application/json;charset=UTF-8');
+//   res.header('Access-Control-Allow-Credentials', 'true');
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'Origin, X-Requested-With, Content-Type, Accept'
+//   );
+//   next();
+// });
 
 // Sanitizing data against NoSQL query injection
 app.use(mongoSanitize());

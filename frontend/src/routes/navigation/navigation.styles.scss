@@ -5,3 +5,12 @@
 .signup-btn:hover {
   background-color: #005299 !important;
 }
+
+.nav-link {
+  font-size: large;
+}
+
+.nav-link:hover {
+  color: var(--dark-color-a);
+  border-bottom: solid 1px;
+}

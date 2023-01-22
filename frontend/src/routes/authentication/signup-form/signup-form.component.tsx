@@ -23,36 +23,52 @@ const SignUpForm: FC = () => {
         <main className="join-main">
           <form action="chat">
             <FormInput
+              onChange={(e) => {
+                e.preventDefault();
+              }}
               labelFor="username"
               label="Username"
               inputType="text"
               inputName="username"
               inputId="username"
               inputPlaceholder="Enter a username..."
+              value={''}
             />
             <FormInput
+              onChange={(e) => {
+                e.preventDefault();
+              }}
               labelFor="email"
               label="Email"
               inputType="text"
               inputName="email"
               inputId="email"
               inputPlaceholder="Enter email..."
+              value={''}
             />
             <FormInput
+              onChange={(e) => {
+                e.preventDefault();
+              }}
               labelFor="password"
               label="Password"
               inputType="password"
               inputName="password"
               inputId="password"
               inputPlaceholder="Enter a Password..."
+              value={''}
             />
             <FormInput
+              onChange={(e) => {
+                e.preventDefault();
+              }}
               labelFor="passwordConfirm"
               label="Confirm Password"
               inputType="password"
               inputName="passwordConfirm"
               inputId="passwordConfirm"
               inputPlaceholder="Confirm password..."
+              value={''}
             />
 
             <Button type={'submit'} className={'btn'} value={'Sign In'} />

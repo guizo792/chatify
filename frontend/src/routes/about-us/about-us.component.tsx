@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import CopyrightSection from 'src/components/copyrights-section/copyrights-section.component';
 import logo from '../../assets/chat.svg';
 
@@ -17,9 +18,9 @@ const AboutUs = () => {
             We are constantly updating and improving our platform to enhance
             your chatting experience. and efficient communication
           </p>
-          <a href="/auth/login" className="Home-link">
+          <Link to="/auth/login" className="Home-link">
             <code>Join CHATIFY</code>
-          </a>
+          </Link>
         </header>
       </div>
       <CopyrightSection />

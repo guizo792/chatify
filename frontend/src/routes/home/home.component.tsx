@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import CopyrightSection from 'src/components/copyrights-section/copyrights-section.component';
 
 import logo from '../../assets/chat.svg';
@@ -14,9 +15,9 @@ const Home = () => {
             enjoy <code>TEXTING</code> your friends <span>anytime</span>
             <span>anywhere</span>
           </p>
-          <a className="Home-link" href="/auth/login">
+          <Link className="Home-link" to="/auth/login">
             HAPPY CHAT
-          </a>
+          </Link>
         </header>
       </div>
       <CopyrightSection />

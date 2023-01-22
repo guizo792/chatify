@@ -1,5 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -16,16 +15,29 @@ function NavScrollExample() {
       <Navbar
         // bg="light"
         expand="lg"
-        style={{ borderRadius: '6px', backgroundColor: '#EDEDED66' }}
+        style={{
+          borderRadius: '6px',
+          backgroundColor: '#EDEDED66',
+        }}
       >
         <Container fluid>
-          <Navbar.Brand
-            href="/"
-            style={{ color: '#0275da', fontWeight: 'bold' }}
+          <Link
+            to="/"
+            className="nav-brand"
+            style={{
+              color: '#0275da',
+              fontWeight: 'bold',
+              fontSize: '1.6rem',
+              padding: '2px 10px',
+              paddingRight: '6rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
           >
             <ChatLogo style={{ height: '46px', width: '64px' }} />
             Chatify
-          </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -33,8 +45,12 @@ function NavScrollExample() {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/about-us">About us</Nav.Link>
+              <Link to="/" className="nav-link">
+                Home
+              </Link>
+              <Link to="/about-us" className="nav-link">
+                About us
+              </Link>
             </Nav>
 
             <Link
