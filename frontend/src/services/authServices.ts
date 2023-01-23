@@ -2,7 +2,7 @@ import axios from 'axios';
 
 axios.defaults.withCredentials = true;
 
-const API_URL = 'http://localhost:5000/api/v1/';
+const API_URL = 'http://localhost:5000/api/v1/users/';
 
 export const signUp = async (
   name: string,
@@ -13,7 +13,7 @@ export const signUp = async (
   try {
     const res = await axios({
       method: 'POST',
-      url: API_URL + 'signUp',
+      url: API_URL + 'signup',
       data: {
         name,
         email,
@@ -32,7 +32,7 @@ export const login = async (email: string, password: string) => {
   try {
     const res = await axios({
       method: 'POST',
-      url: 'http://localhost:5000/api/v1/users/login',
+      url: API_URL + 'login',
       data: {
         email,
         password,
