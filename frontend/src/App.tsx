@@ -8,6 +8,7 @@ import AboutUs from './routes/about-us/about-us.component';
 import Chat from './routes/chat/chat.component';
 
 import './App.css';
+import ProtectedRoute from './components/protectedRoute/protectedRoute.component';
 
 function App() {
   return (
@@ -16,8 +17,15 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/auth/login/*" element={<LoginForm />} />
         <Route path="/auth/signup/*" element={<SignUpForm />} />
-        <Route path="/chat/*" element={<Chat />} />
         <Route path="/about-us" element={<AboutUs />} />
+        <Route
+          path="/chat/*"
+          element={
+            <ProtectedRoute accessBy="authenticated">
+              <Chat />
+            </ProtectedRoute>
+          }
+        />
       </Route>
     </Routes>
   );

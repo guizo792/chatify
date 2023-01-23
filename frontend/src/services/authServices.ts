@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { showAlert } from 'src/utils/alert';
 
 axios.defaults.withCredentials = true;
 
-const API_URL = 'http://localhost:5000/api/v1/users/';
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const signUp = async (
   name: string,
@@ -23,8 +24,8 @@ export const signUp = async (
     });
 
     return res.data;
-  } catch (err) {
-    console.log('There was an error!!!', err);
+  } catch (err: any) {
+    return err.response.data;
   }
 };
 
@@ -38,18 +39,26 @@ export const login = async (email: string, password: string) => {
         password,
       },
     });
-
     return res.data;
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    return err.response.data;
   }
 };
 
-export const logout = () => {
-  localStorage.removeItem('user');
-  return axios.post(API_URL + 'signout').then((response) => {
-    return response.data;
-  });
+export const logout = async () => {
+  try {
+    const res = await axios({
+      method: 'GET',
+      url: API_URL + 'logout',
+    });
+
+    if (res.data.status === 'success') {
+      localStorage.removeItem('user');
+      return res.data;
+    }
+  } catch (err) {
+    showAlert('Error logging out! Try again.', 'error');
+  }
 };
 
 export const getCurrentUser = () => {

@@ -47,7 +47,7 @@ app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  console.log(req.cookies);
+  // console.log(req.cookies);
   next();
 });
 

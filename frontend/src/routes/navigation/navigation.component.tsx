@@ -1,15 +1,35 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import { useContext, useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
+import AuthContext from 'src/context/authContext';
+import { logout } from 'src/services/authServices';
 
 import { ReactComponent as ChatLogo } from '../../assets/chat.svg';
 
 import './navigation.styles.scss';
 
 function NavScrollExample() {
+  const { user } = useContext(AuthContext);
+  let [userData, setUserData] = useState(user);
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const res = await logout();
+    if (res.status === 'success') {
+      window.location.reload();
+      navigate('/');
+    }
+  };
+
+  // useEffect(() => {
+  //   if (user) setUserData(user);
+  // }, [user]);
+
   return (
     <>
       <Navbar
@@ -21,14 +41,13 @@ function NavScrollExample() {
         }}
       >
         <Container fluid>
-          <Link
-            to="/"
+          <Navbar.Brand
+            href="/"
             className="nav-brand"
             style={{
               color: '#0275da',
               fontWeight: 'bold',
               fontSize: '1.6rem',
-              padding: '2px 10px',
               paddingRight: '6rem',
               display: 'flex',
               alignItems: 'center',
@@ -37,7 +56,7 @@ function NavScrollExample() {
           >
             <ChatLogo style={{ height: '46px', width: '64px' }} />
             Chatify
-          </Link>
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -51,29 +70,65 @@ function NavScrollExample() {
               <Link to="/about-us" className="nav-link">
                 About us
               </Link>
+              {userData && (
+                <Link to="/chat" className="nav-link">
+                  Chat
+                </Link>
+              )}
             </Nav>
 
-            <Link
-              to={'/auth/login'}
-              className="btn"
-              style={{
-                marginRight: '8px',
-                border: 'solid 1px var(--dark-color-a)',
-              }}
-            >
-              Login
-            </Link>
-            <Link
-              to={'/auth/signup'}
-              style={{
-                backgroundColor: '#0275d8',
-                color: '#fff',
-                border: 'solid 1px #0275d8',
-              }}
-              className="btn signup-btn"
-            >
-              Sign up
-            </Link>
+            {!userData ? (
+              <>
+                <Link
+                  to={'/auth/login'}
+                  className="btn"
+                  style={{
+                    marginRight: '8px',
+                    border: 'solid 1px var(--dark-color-a)',
+                  }}
+                >
+                  Login
+                </Link>
+                <Link
+                  to={'/auth/signup'}
+                  style={{
+                    backgroundColor: '#0275d8',
+                    color: '#fff',
+                    border: 'solid 1px #0275d8',
+                  }}
+                  className="btn signup-btn"
+                >
+                  Sign up
+                </Link>
+              </>
+            ) : (
+              <>
+                {console.log(userData)}
+                <Link
+                  to={'/'}
+                  className="btn"
+                  style={{
+                    marginRight: '8px',
+                    border: 'solid 1px var(--dark-color-a)',
+                  }}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Link>
+                <Link
+                  to={'/profile'}
+                  style={{
+                    fontSize: '1.2rem',
+                    marginLeft: '1.4rem',
+                    marginRight: '1rem',
+                    color: '#112a46',
+                    fontWeight: '500',
+                  }}
+                >
+                  {(userData as unknown as { name: string }).name}
+                </Link>
+              </>
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>

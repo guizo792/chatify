@@ -54,7 +54,6 @@ const SignUpForm: FC = () => {
         //   break;
         default:
           // console.log(error);
-          alert('an error occured');
           console.log('user sign in failed', error);
       }
     }

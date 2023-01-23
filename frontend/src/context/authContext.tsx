@@ -2,6 +2,7 @@ import React, { createContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { login, signUp } from 'src/services/authServices';
+import { showAlert } from 'src/utils/alert';
 
 const AuthContext = createContext({
   user: null,
@@ -16,9 +17,9 @@ const AuthContext = createContext({
 
 export const AuthContextProvider = (props: any) => {
   const [user, setUser] = useState(() => {
-    let user: any = localStorage.getItem('user');
-    if (user) {
-      return JSON.parse(user);
+    let userProfile: any = localStorage.getItem('user');
+    if (userProfile && userProfile !== undefined) {
+      return JSON.parse(userProfile);
     }
     return null;
   });
@@ -33,24 +34,34 @@ export const AuthContextProvider = (props: any) => {
   ) => {
     let res = await signUp(name, email, password, passwordConfirm);
     if (res.status === 'success') {
+      showAlert('Logged in successfully...', 'success');
       localStorage.setItem('user', JSON.stringify(res.data.user));
-      setUser(res.data.user);
-      navigate('../chat');
+      setUser(res.data);
+      window.setTimeout(() => {
+        navigate('../chat');
+        window.location.reload();
+      }, 1500);
     } else {
-      console.log(res);
+      showAlert(res.message, 'error');
     }
   };
 
   // Login user
   const loginUser = async (email: string, password: string) => {
     let res = await login(email, password);
+    // console.log(res);
     if (res.status === 'success') {
+      console.log(res.data.user);
+      showAlert('Logged in successfully...', 'success');
       // console.log(res.data.user);
       localStorage.setItem('user', JSON.stringify(res.data.user));
-      setUser(res.data.user);
-      navigate('../chat');
+      setUser(res.data);
+      window.setTimeout(() => {
+        navigate('../chat');
+        window.location.reload();
+      }, 1500);
     } else {
-      console.log(res);
+      showAlert(res.message, 'error');
     }
   };
 
