@@ -40,7 +40,7 @@ export const AuthContextProvider = (props: any) => {
       window.setTimeout(() => {
         navigate('../chat');
         window.location.reload();
-      }, 1500);
+      }, 3000);
     } else {
       showAlert(res.message, 'error');
     }
@@ -51,7 +51,7 @@ export const AuthContextProvider = (props: any) => {
     let res = await login(email, password);
     // console.log(res);
     if (res.status === 'success') {
-      console.log(res.data.user);
+      // console.log(res.data.user);
       showAlert('Logged in successfully...', 'success');
       // console.log(res.data.user);
       localStorage.setItem('user', JSON.stringify(res.data.user));
@@ -59,7 +59,7 @@ export const AuthContextProvider = (props: any) => {
       window.setTimeout(() => {
         navigate('../chat');
         window.location.reload();
-      }, 1500);
+      }, 3000);
     } else {
       showAlert(res.message, 'error');
     }

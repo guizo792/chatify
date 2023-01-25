@@ -6,9 +6,10 @@ import LoginForm from './routes/authentication/login-form/login-form.component';
 import SignUpForm from './routes/authentication/signup-form/signup-form.component';
 import AboutUs from './routes/about-us/about-us.component';
 import Chat from './routes/chat/chat.component';
+import ProtectedRoute from './components/protectedRoute/protectedRoute.component';
+import PageNotFound from './routes/page-not-found/page-not-found.component';
 
 import './App.css';
-import ProtectedRoute from './components/protectedRoute/protectedRoute.component';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           }
         />
       </Route>
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 }

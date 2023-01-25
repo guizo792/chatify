@@ -9,9 +9,9 @@ const handleCastErrorDB = (err: IAppError) => {
 
 const handleDuplicateFieldsDB = (err: IAppError) => {
   const value = err.errmsg?.match(/(["'])(\\?.)*?\1/)![0];
-  console.log(value);
+  console.log('duplicate: ', value);
 
-  const message = `Duplicate field value: ${value}. Please use another value!`;
+  const message = `A user already exist with : ${value}. Please use another value!`;
   return new AppError(message, 400);
 };
 const handleValidationErrorDB = (err: IAppError) => {
@@ -38,7 +38,10 @@ const sendErrorDev = (err: IAppError, res: Response) => {
 
 const sendErrorProd = (err: IAppError, res: Response) => {
   // Operational, trusted error: send message to client
-  if (err.isOperational) {
+  if (
+    (err as unknown as { error: { isOperational: boolean } }).error
+      .isOperational
+  ) {
     res.status(err.statusCode).json({
       status: err.status,
       message: err.message,

@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import AuthContext from 'src/context/authContext';
 import { logout } from 'src/services/authServices';
+import { showAlert } from 'src/utils/alert';
 
 import { ReactComponent as ChatLogo } from '../../assets/chat.svg';
 
@@ -21,7 +22,10 @@ function NavScrollExample() {
   const handleLogout = async () => {
     const res = await logout();
     if (res.status === 'success') {
-      window.location.reload();
+      showAlert('Logging out ...', 'success');
+      window.setTimeout(() => {
+        window.location.reload();
+      }, 1000);
       navigate('/');
     }
   };
@@ -103,7 +107,6 @@ function NavScrollExample() {
               </>
             ) : (
               <>
-                {console.log(userData)}
                 <Link
                   to={'/'}
                   className="btn"
