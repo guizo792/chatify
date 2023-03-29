@@ -1,0 +1,18 @@
+.chat-form-container {
+  padding: 20px 30px;
+  background-color: var(--dark-color-a);
+}
+
+.chat-form-container form {
+  display: flex;
+}
+
+.chat-form-container input {
+  font-size: 16px;
+  padding: 5px;
+  height: 40px;
+  flex: 1;
+  border-radius: 6px;
+  margin-right: -6px;
+  border: 1px solid #112a46;
+}

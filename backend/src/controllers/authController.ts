@@ -63,6 +63,7 @@ exports.signup = catchAsync(
       email: req.body.email,
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
+      photo: req.body.photo,
     });
 
     // Creating and Signing the token

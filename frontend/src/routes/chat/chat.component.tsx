@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import ChatInput from 'src/components/chat-input/chat-input.component';
 import CopyrightSection from 'src/components/copyrights-section/copyrights-section.component';
 import AuthContext from 'src/context/authContext';
 import './chat.styles.css';
@@ -49,29 +50,7 @@ const Chat = () => {
                 })}
               </div>
             </main>
-            <div className="chat-form-container">
-              <form id="chat-form">
-                <input
-                  id="msg"
-                  type="text"
-                  placeholder="Enter Message"
-                  required
-                  autoComplete="off"
-                />
-                <button
-                  className="btn send-btn"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    console.log(
-                      (e.target as unknown as { parentElement: HTMLElement })
-                        .parentElement
-                    );
-                  }}
-                >
-                  <i className="fas fa-paper-plane"></i> Send
-                </button>
-              </form>
-            </div>
+            <ChatInput />
           </>
         )}
       </div>

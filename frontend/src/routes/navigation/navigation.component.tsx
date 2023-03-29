@@ -22,7 +22,7 @@ function NavScrollExample() {
   const handleLogout = async () => {
     const res = await logout();
     if (res.status === 'success') {
-      showAlert('Logging out ...', 'success');
+      showAlert('Logged out successfully ...', 'success');
       window.setTimeout(() => {
         window.location.reload();
       }, 1000);
@@ -117,6 +117,15 @@ function NavScrollExample() {
                   onClick={handleLogout}
                 >
                   Logout
+                </Link>
+                <Link to={'/profile'}>
+                  <img
+                    src={require(`../../assets/users/${
+                      (userData as unknown as { photo: string }).photo
+                    }`)}
+                    alt="Profile"
+                    className="profile-img"
+                  />
                 </Link>
                 <Link
                   to={'/profile'}

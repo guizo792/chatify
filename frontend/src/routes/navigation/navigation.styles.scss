@@ -14,3 +14,11 @@
   color: var(--dark-color-a);
   text-decoration: overline dashed;
 }
+
+.profile-img {
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  border: 1px rgb(5, 20, 71) solid;
+  margin-left: 0.7rem;
+}

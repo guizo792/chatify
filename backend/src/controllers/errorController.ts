@@ -38,10 +38,7 @@ const sendErrorDev = (err: IAppError, res: Response) => {
 
 const sendErrorProd = (err: IAppError, res: Response) => {
   // Operational, trusted error: send message to client
-  if (
-    (err as unknown as { error: { isOperational: boolean } }).error
-      .isOperational
-  ) {
+  if (err) {
     res.status(err.statusCode).json({
       status: err.status,
       message: err.message,
@@ -72,7 +69,7 @@ module.exports = (
   if (process.env.NODE_ENV === 'development') {
     sendErrorDev(err, res);
   } else if (process.env.NODE_ENV === 'production') {
-    let error = { ...err };
+    let error = err;
 
     if (error.name === 'CastError') error = handleCastErrorDB(error);
     if (error.code === 11000) error = handleDuplicateFieldsDB(error);
