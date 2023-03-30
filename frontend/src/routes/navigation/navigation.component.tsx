@@ -120,9 +120,13 @@ function NavScrollExample() {
                 </Link>
                 <Link to={'/profile'}>
                   <img
-                    src={require(`../../assets/users/${
-                      (userData as unknown as { photo: string }).photo
-                    }`)}
+                    src={
+                      ((userData as unknown as { photo: string })?.photo &&
+                        `/images/users/${
+                          (userData as unknown as { photo: string })?.photo
+                        }`) ||
+                      '/images/users/default.jpg'
+                    }
                     alt="Profile"
                     className="profile-img"
                   />

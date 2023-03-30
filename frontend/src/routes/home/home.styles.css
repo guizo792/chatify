@@ -36,6 +36,24 @@
 .Home-link {
   font-weight: bold;
   border-bottom: 3px solid #0275d822;
+  position: relative;
+  padding: 0 4px;
+}
+
+.Home-link:before {
+  content: '';
+  background-color: #0274d83d;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 8px;
+  z-index: -1;
+  transition: all 0.3s ease-in-out;
+}
+
+.Home-link:hover:before {
+  height: 100%;
 }
 
 code {
