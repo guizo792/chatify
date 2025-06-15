@@ -18,7 +18,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/socket.io-client": "^3.0.0",
     "@types/styled-components": "^5.1.26",
-    "axios": "^1.7.4",
+    "axios": "^1.8.2",
     "font-awesome": "^4.7.0",
     "http-proxy-middleware": "^2.0.7",
     "query-string": "^8.1.0",
